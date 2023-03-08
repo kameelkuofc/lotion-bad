@@ -9,10 +9,6 @@ function Layout() {
     sidebar.classList.toggle("hidden");
   }
 
-  // const switchEdit = () => {
-  //   document.getElementById("editor").replaceWith("editorInEditor");
-  // }
-
   return (
     <>
     <section>
@@ -29,10 +25,14 @@ function Layout() {
       </nav>
 
       <div id="page">
-        <div id="sidebar"><Sidebar /></div>
+        <div id="sidebar">
+          <Sidebar />
+          </div>
         <div id="editor">
+        <Outlet />
+        <div id="greetText">
           Select a note or create a new one.
-          <Outlet />
+        </div>
           </div>
       </div>
     </section>
