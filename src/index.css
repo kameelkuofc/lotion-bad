@@ -110,7 +110,7 @@ a {
 
 #sidebar{
   flex: 1;
-  border-right: 1px solid grey;
+  border-right: 1px solid darkgray;
 }
 
 #editorBar{
@@ -146,6 +146,7 @@ a {
 #firstRow{
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid grey;
 }
 
 #notesTitle{
@@ -155,6 +156,43 @@ a {
   flex: 1;
 }
 
+
+#side_note_title{
+  font-weight: bold;
+  padding: 4px;
+  font-size: 25px;
+}
+
+#side_note_date{
+  color: grey;
+  padding-bottom: 10px;
+}
+
+#side_note_sum{
+  padding-bottom: 2px;
+}
+
+#individualNotefalse{
+  border-bottom: 1px solid lightgrey;
+}
+
+#individualNotefalse:hover{
+  background-color: rgb(44, 14, 125);
+  color: white;
+  border-bottom: 1px solid lightgrey;
+
+}
+
+#individualNoteActive{
+  background-color: rgb(44, 14, 125);
+  color: white;
+  border-bottom: 1px solid lightgrey;
+
+}
+
+.quill{
+  height: 100%;
+}
 
 .hidden{
   display: none;
