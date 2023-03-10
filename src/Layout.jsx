@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, createContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { v4 as uuidv4 } from "uuid";
 import Editor from "./Editor";
+
+export const MyContext = createContext();
 
 function Layout() {
   const click = () => {
@@ -55,20 +57,24 @@ function Layout() {
     return notes.find((noteInfo) => noteInfo.note_r_id === clickNote);
   };
 
+  const updateNote = (title, body, date) => {
+    getClickNote.note_title = title;
+    getClickNote.note_body = body;
+    getClickNote.note_date = date;
+
+  }
+
   useEffect(() => {
     localStorage.setItem("notesArray", JSON.stringify(notes));
   },[notes]);
 
   useEffect(() => {
     const gottenNotes = JSON.parse(localStorage.getItem("notesArray"));
+    if(gottenNotes){
+      setNotes(gottenNotes);
+    }
   },[]);
 
-
-  function saveFunc (title, body, date) {
-    notes.note_body = body;
-    notes.note_date = date;
-    notes.note_title = title;
-  };
 
   return (
     <>
@@ -96,7 +102,7 @@ function Layout() {
           </div>
           <div id="editor">
             {notes.length === 0? (<div id="greetText">Select a note or create a new one</div>) : (
-            <Outlet context={[defaultDate, setDate, getClickNote(), toDelete]} /> )}
+            <Outlet context={[defaultDate, setDate, getClickNote, toDelete]} /> )}
           </div>
         </div>
       </section>
