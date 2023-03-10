@@ -25,7 +25,6 @@ function Layout() {
   const [defaultDate, setDate] = useState(date_timeNow); //useState for setting default date and time and setting user input date and time
   var sideBar_date = date.toLocaleDateString("en-US", options);
 
-  const goToPath = useNavigate();
   var [notes, setNotes] = useState([]);
   const createNewNote = () => {
     const noteInfo = {
@@ -34,16 +33,17 @@ function Layout() {
       note_body: " ",
       note_date: sideBar_date,
     };
-
-    setNotes((notes = [noteInfo, ...notes]));
+    
+    setNotes(notes = [noteInfo, ...notes]);
     console.log(notes);
+
   };
   var [clickNote, onClickNote] = useState(false);
 
   const toDelete = () => {
     deleteNote(clickNote);
   };
-  
+
   const deleteNote = (deleteNoteID) => {
     const answer = window.confirm("Are you sure?");
     if (answer) {
@@ -57,11 +57,18 @@ function Layout() {
 
   useEffect(() => {
     localStorage.setItem("notesArray", JSON.stringify(notes));
-  }, [notes]);
+  },[notes]);
 
   useEffect(() => {
     const gottenNotes = JSON.parse(localStorage.getItem("notesArray"));
-  }, []);
+  },[]);
+
+
+  function saveFunc (title, body, date) {
+    notes.note_body = body;
+    notes.note_date = date;
+    notes.note_title = title;
+  };
 
   return (
     <>
@@ -88,19 +95,8 @@ function Layout() {
             />
           </div>
           <div id="editor">
-            {notes.length === 0 ? (
-              <div id="greetText">Select a note or create a new one</div>
-            ) : (
-              <Outlet
-                defaultDate={defaultDate}
-                setDate={setDate}
-                getClickNote={getClickNote()}
-                toDelete={toDelete}
-              />
-            )}
-            {/* <div id="greetText">
-          Select a note or create a new one.
-        </div> */}
+            {notes.length === 0? (<div id="greetText">Select a note or create a new one</div>) : (
+            <Outlet context={[defaultDate, setDate, getClickNote(), toDelete]} /> )}
           </div>
         </div>
       </section>

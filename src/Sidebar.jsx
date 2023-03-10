@@ -27,7 +27,7 @@ function Sidebar({
             key={note.note_r_id}
             onClick={() => {
               imp_OnClickNote(note.note_r_id)
-              goto(`/notes/${noteid}/edit`)
+              goto(`/notes/${note.note_r_id}/edit`)
             }}
           >
             <div id="side_note_title">{note.note_title}</div>

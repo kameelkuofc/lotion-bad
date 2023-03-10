@@ -4,25 +4,22 @@ import { useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Editor(props) {
+function Editor({edit}) {
+  var [defaultDate, setDate, getClickNote, toDelete] = useOutletContext();
 
   var { noteid } = useParams();
   const [body, setBody] = useState(''); //useState function for Quill editor
+  var input = document.getElementById("justLoadedDate"); //input to date_time useState to take in user inputted value
 
   const [title, setTitle] = useState('');
 
-  function updateNoteTitle (event) {
+  const updateNoteTitle = (event) => {
     setTitle(event.target.title);
   };
 
-  function updateNoteBody (value) {
+  const updateNoteBody = (value) => {
     setBody(value);
   };
-
-  function updateDate (date){
-    props.setDate(date.target.defaultDate);
-  }
-
 
   return (
     <>
@@ -30,13 +27,13 @@ function Editor(props) {
         <div id="title_date" >
           <input type="text" defaultValue={title} onChange={updateNoteTitle} placeholder="Untitled" id="noteTitle" />
           <div id="date">
-            <input type="datetime-local" id="loadedDate" defaultValue={props.defaultDate} onChange={updateDate}/>
+            <input type="datetime-local" id="loadedDate" defaultValue={defaultDate} onChange={() => setDate(input)}/>
           </div>
         </div>
         <button className="buttons" id="save_editButton">
           Save
         </button>
-        <button onClick={props.toDelete} className="buttons" id="deleteButton">
+        <button onClick={toDelete} className="buttons" id="deleteButton">
           Delete
         </button>
       </div>
